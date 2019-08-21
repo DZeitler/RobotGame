@@ -17,8 +17,12 @@ public class TankMovement : MonoBehaviour
     [SerializeField] private Transform _gunTransform;
     [SerializeField] private float _turretLagSpeed;
     [SerializeField] private float _gunLatSpeed;
+    [SerializeField] Vector2 _rotationAmount;
+    [SerializeField] Vector2 _retOffset;
     private Vector3 finalTurretLookDir;
     private Vector3 finalGunLookDir;
+    [SerializeField] private Vector2 screenres;
+    [SerializeField]  private Vector2 mousePos;
 
     //Makes it a get only variable//
     public Vector3 ReticlePosition
@@ -72,7 +76,7 @@ public class TankMovement : MonoBehaviour
 
     //look up virtual method//
     protected virtual void HandleInputs()
-    {
+    { /*
         //uses mouse position to cast ray into the scene//
         Ray screenray = _camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -83,6 +87,9 @@ public class TankMovement : MonoBehaviour
             recticlePosition = hit.point;
             recticalNormal = hit.normal;
         }
+        */
+        screenres = new Vector2(Screen.width, Screen.height);
+        mousePos = ((Input.mousePosition) / screenres * 2) - new Vector2(1, 1);
 
     }
 
@@ -98,19 +105,25 @@ public class TankMovement : MonoBehaviour
     {
         if (_turretTransform)
         {
-           
-            Vector3 lookDir = (ReticlePosition -  _turretTransform.position);
-            Vector3 turrentdirection = (ReticlePosition - _turretTransform.position);
-            turrentdirection.y = .5f;
+            /*
+             Vector3 lookDir = (ReticlePosition -  _turretTransform.position);
+             Vector3 turrentdirection = (ReticlePosition - _turretTransform.position);
+             turrentdirection.y = .5f;
 
 
-            //adds turret look lag//
-            finalTurretLookDir = Vector3.Lerp(finalTurretLookDir, turrentdirection, Time.deltaTime * _turretLagSpeed);
-            finalGunLookDir = Vector3.Lerp(finalGunLookDir, lookDir, Time.deltaTime * _gunLatSpeed);
-            finalGunLookDir.y = finalGunLookDir.y - .25f;
-            _gunTransform.rotation = Quaternion.LookRotation(finalGunLookDir);
-            _turretTransform.rotation = Quaternion.LookRotation(finalTurretLookDir);
-           
+             //adds turret look lag//
+             finalTurretLookDir = Vector3.Lerp(finalTurretLookDir, turrentdirection, Time.deltaTime * _turretLagSpeed);
+             finalGunLookDir = Vector3.Lerp(finalGunLookDir, lookDir, Time.deltaTime * _gunLatSpeed);
+             finalGunLookDir.y = finalGunLookDir.y - .25f;
+             _gunTransform.rotation = Quaternion.LookRotation(finalGunLookDir);
+             _turretTransform.rotation = Quaternion.LookRotation(finalTurretLookDir);
+            */
+            
+            _turretTransform.rotation = Quaternion.Euler( new Vector3(0, mousePos.x * _rotationAmount.x, 0));
+            _gunTransform.rotation = Quaternion.Euler(new Vector3((-1 *mousePos.y +_retOffset.y) * _rotationAmount.y, mousePos.x * _rotationAmount.x, 0));
+
+
+
             
         }
     }
