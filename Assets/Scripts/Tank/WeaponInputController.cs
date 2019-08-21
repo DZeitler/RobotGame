@@ -14,7 +14,7 @@ public class WeaponInputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (_BulletSpawner)
             {
@@ -23,7 +23,7 @@ public class WeaponInputController : MonoBehaviour
            
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             if (_BulletSpawner)
             {
