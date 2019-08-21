@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: 3df29e7cc05fbec4aa43e06ea875565d, type: 3}
   m_Name: ProceduralSky
   m_EditorClassIdentifier: 
@@ -85,6 +86,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: 29b00527f85bb3346a4d2cb710971587, type: 3}
   m_Name: VolumetricFog
   m_EditorClassIdentifier: 
@@ -129,14 +131,15 @@ MonoBehaviour:
     showEyeDropper: 1
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 12.31
+    m_Value: 500
     min: 1
   baseHeight:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   meanHeight:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 30
+    min: 1
   anisotropy:
     m_OverrideState: 1
     m_Value: 0.6
@@ -159,6 +162,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: 7ddcec8a8eb2d684d833ac8f5d26aebd, type: 3}
   m_Name: HDShadowSettings
   m_EditorClassIdentifier: 
@@ -176,24 +180,34 @@ MonoBehaviour:
   cascadeShadowSplit0:
     m_OverrideState: 0
     m_Value: 0.05
+    min: 0
+    max: 1
   cascadeShadowSplit1:
     m_OverrideState: 0
     m_Value: 0.15
+    min: 0
+    max: 1
   cascadeShadowSplit2:
     m_OverrideState: 0
     m_Value: 0.3
+    min: 0
+    max: 1
   cascadeShadowBorder0:
     m_OverrideState: 0
     m_Value: 0
+    min: 0
   cascadeShadowBorder1:
     m_OverrideState: 0
     m_Value: 0
+    min: 0
   cascadeShadowBorder2:
     m_OverrideState: 0
     m_Value: 0
+    min: 0
   cascadeShadowBorder3:
     m_OverrideState: 0
     m_Value: 0
+    min: 0
 --- !u!114 &-2962872181204505630
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -203,6 +217,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: 0d7593b3a9277ac4696b20006c21dde2, type: 3}
   m_Name: VisualEnvironment
   m_EditorClassIdentifier: 
@@ -211,9 +226,6 @@ MonoBehaviour:
   skyType:
     m_OverrideState: 1
     m_Value: 2
-  skyAmbientMode:
-    m_OverrideState: 0
-    m_Value: 0
   fogType:
     m_OverrideState: 1
     m_Value: 3
@@ -226,6 +238,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
   m_Name: DefaultRenderingSettings
   m_EditorClassIdentifier: 
@@ -244,6 +257,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
   m_Script: {fileID: 11500000, guid: 9008a067f4d626c4d8bc4bc48f04bb89, type: 3}
   m_Name: AmbientOcclusion
   m_EditorClassIdentifier: 
@@ -254,47 +268,28 @@ MonoBehaviour:
     m_Value: 0.5
     min: 0
     max: 4
-  stepCount:
+  thicknessModifier:
     m_OverrideState: 0
-    m_Value: 6
-    min: 2
-    max: 32
-  radius:
-    m_OverrideState: 0
-    m_Value: 2
-    min: 0.25
-    max: 5
-  fullResolution:
-    m_OverrideState: 0
-    m_Value: 0
-  maximumRadiusInPixels:
-    m_OverrideState: 0
-    m_Value: 40
-    min: 16
-    max: 256
+    m_Value: 1
+    min: 1
+    max: 10
   directLightingStrength:
     m_OverrideState: 0
     m_Value: 0
     min: 0
     max: 1
-  enableRaytracing:
+  noiseFilterTolerance:
     m_OverrideState: 0
     m_Value: 0
-  rayLength:
+    min: -8
+    max: 0
+  blurTolerance:
     m_OverrideState: 0
-    m_Value: 0.5
-    min: 0
-    max: 50
-  enableFilter:
+    m_Value: -4.6
+    min: -8
+    max: 1
+  upsampleTolerance:
     m_OverrideState: 0
-    m_Value: 0
-  numSamples:
-    m_OverrideState: 0
-    m_Value: 4
-    min: 1
-    max: 64
-  filterRadius:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 1
-    max: 32
+    m_Value: -12
+    min: -12
+    max: -1

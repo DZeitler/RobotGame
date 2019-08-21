@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponInputController : MonoBehaviour
 {
-
+    [SerializeField] ParticleSystem _BulletSpawner;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,9 +14,22 @@ public class WeaponInputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("firing");
+            if (_BulletSpawner)
+            {
+                _BulletSpawner.Play();
+            }
+           
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (_BulletSpawner)
+            {
+                _BulletSpawner.Stop();
+            }
+              
         }
     }
 }

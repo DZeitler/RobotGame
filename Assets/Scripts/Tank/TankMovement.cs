@@ -4,11 +4,33 @@ using UnityEngine;
 
 public class TankMovement : MonoBehaviour
 {
+    [Header("Movement Control")]
     [SerializeField] private Rigidbody _tank;
     [SerializeField] private float _speed;
     [SerializeField] private float _turnspeed;
     public float velcity;
+    [Header("TurretControl")]
+    [SerializeField] Camera _camera;
+    [Header("Redicle")]
+    [SerializeField] private Transform _reticleTransform;
+    [SerializeField] private Transform _turretTransform;
+    [SerializeField] private Transform _gunTransform;
+    [SerializeField] private float _turretLagSpeed;
+    [SerializeField] private float _gunLatSpeed;
+    private Vector3 finalTurretLookDir;
+    private Vector3 finalGunLookDir;
 
+    //Makes it a get only variable//
+    public Vector3 ReticlePosition
+    {
+        get { return recticlePosition; }
+    }
+    [SerializeField] private Vector3 RecicleNormal
+    {
+        get { return recticalNormal; }
+    }
+    private Vector3 recticlePosition;
+    private Vector3 recticalNormal;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +40,10 @@ public class TankMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleInputs();
+        HandleReticle();
+        HandleTurret();
+
         //forward//
         if (Input.GetKey(KeyCode.W))
         {
@@ -43,4 +69,57 @@ public class TankMovement : MonoBehaviour
 
         velcity = _tank.velocity.magnitude;
     }
+
+    //look up virtual method//
+    protected virtual void HandleInputs()
+    {
+        //uses mouse position to cast ray into the scene//
+        Ray screenray = _camera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        //takes raycast from mouse position and stores it in hit//
+        LayerMask layerM = LayerMask.GetMask("Ground");
+        if(Physics.Raycast(screenray, out hit,Mathf.Infinity, layerM))
+        {
+            recticlePosition = hit.point;
+            recticalNormal = hit.normal;
+        }
+
+    }
+
+    protected virtual void HandleReticle()
+    {
+        if (_reticleTransform)
+        {
+            _reticleTransform.position = ReticlePosition;
+        }
+    }
+
+    protected virtual void HandleTurret()
+    {
+        if (_turretTransform)
+        {
+           
+            Vector3 lookDir = (ReticlePosition -  _turretTransform.position);
+            Vector3 turrentdirection = (ReticlePosition - _turretTransform.position);
+            turrentdirection.y = .5f;
+
+
+            //adds turret look lag//
+            finalTurretLookDir = Vector3.Lerp(finalTurretLookDir, turrentdirection, Time.deltaTime * _turretLagSpeed);
+            finalGunLookDir = Vector3.Lerp(finalGunLookDir, lookDir, Time.deltaTime * _gunLatSpeed);
+            finalGunLookDir.y = finalGunLookDir.y - .25f;
+            _gunTransform.rotation = Quaternion.LookRotation(finalGunLookDir);
+            _turretTransform.rotation = Quaternion.LookRotation(finalTurretLookDir);
+           
+            
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(recticlePosition, 1);
+
+    }
+
 }
