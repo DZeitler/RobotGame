@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponInputController : MonoBehaviour
 {
     [SerializeField] ParticleSystem _BulletSpawner;
+    [SerializeField] AudioSource _AudioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class WeaponInputController : MonoBehaviour
             if (_BulletSpawner)
             {
                 _BulletSpawner.Play();
+                _AudioSource.Play();
             }
            
         }
@@ -28,6 +30,7 @@ public class WeaponInputController : MonoBehaviour
             if (_BulletSpawner)
             {
                 _BulletSpawner.Stop();
+                _AudioSource.Stop();
             }
               
         }
