@@ -17,12 +17,17 @@ public class TankMovement : MonoBehaviour
     [SerializeField] private Transform _gunTransform;
     [SerializeField] private float _turretLagSpeed;
     [SerializeField] private float _gunLatSpeed;
-    [SerializeField] Vector2 _rotationAmount;
-    [SerializeField] Vector2 _retOffset;
+    [SerializeField] private Vector2 _rotationAmount;
+    [SerializeField] private Vector2 _retOffset;
+    [SerializeField] private float _xBufferValue;
+    [SerializeField] private float _yBufferValue;
+    [SerializeField] private float _xturnSpeed;
+    [SerializeField] private float _yturnSpeed;
     private Vector3 finalTurretLookDir;
     private Vector3 finalGunLookDir;
-    [SerializeField] private Vector2 screenres;
-    [SerializeField]  private Vector2 mousePos;
+     private Vector2 screenres;
+    [SerializeField] private Vector2 mousePos;
+    private Vector3 currentRotation;
 
     //Makes it a get only variable//
     public Vector3 ReticlePosition
@@ -76,18 +81,8 @@ public class TankMovement : MonoBehaviour
 
     //look up virtual method//
     protected virtual void HandleInputs()
-    { /*
-        //uses mouse position to cast ray into the scene//
-        Ray screenray = _camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        //takes raycast from mouse position and stores it in hit//
-        LayerMask layerM = LayerMask.GetMask("Ground");
-        if(Physics.Raycast(screenray, out hit,Mathf.Infinity, layerM))
-        {
-            recticlePosition = hit.point;
-            recticalNormal = hit.normal;
-        }
-        */
+    { 
+        //Gets screen res and uses it to normalize then remap mouse pos values to -1,1 on each axis//
         screenres = new Vector2(Screen.width, Screen.height);
         mousePos = ((Input.mousePosition) / screenres * 2) - new Vector2(1, 1);
 
@@ -105,26 +100,22 @@ public class TankMovement : MonoBehaviour
     {
         if (_turretTransform)
         {
-            /*
-             Vector3 lookDir = (ReticlePosition -  _turretTransform.position);
-             Vector3 turrentdirection = (ReticlePosition - _turretTransform.position);
-             turrentdirection.y = .5f;
-
-
-             //adds turret look lag//
-             finalTurretLookDir = Vector3.Lerp(finalTurretLookDir, turrentdirection, Time.deltaTime * _turretLagSpeed);
-             finalGunLookDir = Vector3.Lerp(finalGunLookDir, lookDir, Time.deltaTime * _gunLatSpeed);
-             finalGunLookDir.y = finalGunLookDir.y - .25f;
-             _gunTransform.rotation = Quaternion.LookRotation(finalGunLookDir);
-             _turretTransform.rotation = Quaternion.LookRotation(finalTurretLookDir);
-            */
             
-            _turretTransform.rotation = Quaternion.Euler( new Vector3(0, mousePos.x * _rotationAmount.x, 0));
-            _gunTransform.rotation = Quaternion.Euler(new Vector3((-1 *mousePos.y +_retOffset.y) * _rotationAmount.y, mousePos.x * _rotationAmount.x, 0));
+            if(Mathf.Abs( mousePos.x) > _xBufferValue)
+            {
+                currentRotation = _turretTransform.rotation.eulerAngles;
+                _turretTransform.rotation = Quaternion.Euler(currentRotation + new Vector3(0, mousePos.x * Time.deltaTime * _xturnSpeed, 0));
+            }
+            if (Mathf.Abs(mousePos.y) > _yBufferValue)
+            {
+                _gunTransform.rotation = Quaternion.Euler(new Vector3((-1 * mousePos.y + _retOffset.y) * _rotationAmount.y, _turretTransform.rotation.eulerAngles.y, 0));
+            }
 
 
 
-            
+         
+
+
         }
     }
 

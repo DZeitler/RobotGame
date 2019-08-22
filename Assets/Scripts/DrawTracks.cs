@@ -7,9 +7,10 @@ public class DrawTracks : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private Shader _drawShader;
     [SerializeField] Transform _tank;
-    private RenderTexture _splatMap;
-    private Material _groundMat;
-    private Material _drawMat;
+    [SerializeField] bool _debug;
+    [SerializeField] private RenderTexture _splatMap;
+    [SerializeField] private Material _groundMat;
+    [SerializeField] private Material _drawMat;
     private RaycastHit _hit;
 
     // Start is called before the first frame update
@@ -41,7 +42,11 @@ public class DrawTracks : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.DrawTexture(new Rect(0, 0, 256, 256), _splatMap, ScaleMode.ScaleToFit, false, 1);
+        if (_debug)
+        {
+            GUI.DrawTexture(new Rect(0, 0, 256, 256), _splatMap, ScaleMode.ScaleToFit, false, 1);
+        }
+       
     }
 
 }
