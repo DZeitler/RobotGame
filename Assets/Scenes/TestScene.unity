@@ -365,7 +365,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36786
+  m_Name: pb_Mesh77734
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2520,6 +2520,7 @@ GameObject:
   - component: {fileID: 1338584657}
   - component: {fileID: 1338584656}
   - component: {fileID: 1338584655}
+  - component: {fileID: 1338584659}
   m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
@@ -2601,6 +2602,22 @@ Transform:
   m_Father: {fileID: 1377729208}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1338584659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338584654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec0bbad013b3c7439a06b48b5441bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 217682082}
+  _drawShader: {fileID: -6465566751694194690, guid: 8dfe0d0054dbd2e4faa0936868e82991,
+    type: 3}
+  _tank: {fileID: 1644575165}
 --- !u!115 &1351803145
 MonoScript:
   m_ObjectHideFlags: 0
